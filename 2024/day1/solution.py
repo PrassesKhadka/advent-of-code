@@ -3,7 +3,7 @@ import os
 col1=[]
 col2=[]
 
-def get_input(str):
+def get_input(str:str):
     val1,val2=str.split()
     col1.append(int(val1))
     col2.append(int(val2))
@@ -11,8 +11,14 @@ def get_input(str):
 with open(os.path.join('input.txt')) as f:
     value=list(map(get_input,f.readlines()))
 
-col1.sort()
-col2.sort()
+def part1():
+    output = sum([abs(val1 - val2) for val1, val2 in zip(sorted(col1), sorted(col2))])
+    print(f"The final output is {output}")
 
-output=sum([val1-val2 if val1>val2  else val2-val1 for val1,val2 in zip(col1,col2)])
-print(f"The final output is {output}")
+def part2():
+    output=sum([i * sum(1 for j in col2 if i == j) for i in col1])
+    print(f"The similarity score is {output}")
+
+if __name__ == "__main__":
+    part1()
+    part2()
